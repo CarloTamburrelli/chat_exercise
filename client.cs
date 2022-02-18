@@ -34,7 +34,7 @@ class Program
  
     static void Main(string[] args)
     {
-        IPAddress ip = IPAddress.Parse("192.168.1.5");
+        IPAddress ip = IPAddress.Parse("127.0.0.1");
         int port = 64446;
         TcpClient client = new TcpClient();
         client.Connect(ip, port);
