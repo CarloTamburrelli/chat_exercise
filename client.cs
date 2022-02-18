@@ -33,24 +33,33 @@ class Program
     }
  
     static void Main(string[] args)
-    {
-        IPAddress ip = IPAddress.Parse("127.0.0.1");
-        int port = 64446;
+    {   
+        Console.WriteLine("Establecer a dirección IP");
+        string address = Console.ReadLine();
+        Console.WriteLine("Establecer una puerta");
+        string port = Console.ReadLine();
+        IPAddress ip = IPAddress.Parse(address);
         TcpClient client = new TcpClient();
-        client.Connect(ip, port);
-        NetworkStream ns = client.GetStream();
-        Console.WriteLine("Elige un nombre:");
-        Thread task = new Thread(getMessages);
-        task.Start(ns);
-        string s;
-        while (true)
-        {
-            s = Console.ReadLine();
-            byte[] buffer = Encoding.ASCII.GetBytes(s);
-            ns.Write(buffer, 0, buffer.Length);
-        }
-        ns.Close();
-        client.Close();
-        Console.WriteLine("disconnect from server.");
+        try {
+            client.Connect(ip, Int32.Parse(port));
+            NetworkStream ns = client.GetStream();
+            Console.WriteLine("conectado al servidor "+address+":"+port);
+            Console.WriteLine("Elige un nombre:");
+            Thread task = new Thread(getMessages);
+            task.Start(ns);
+            string s;
+            while (true)
+            {
+                s = Console.ReadLine();
+                byte[] buffer = Encoding.ASCII.GetBytes(s);
+                ns.Write(buffer, 0, buffer.Length);
+            }
+            ns.Close();
+            client.Close();
+            Console.WriteLine("disconnect from server.");
+        }catch (SocketException e)
+            {
+                Console.WriteLine("No server found");
+            }
     }
 }

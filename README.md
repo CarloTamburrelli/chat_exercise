@@ -2,7 +2,7 @@
 
 ## How it works?
 
-Before starting the server and the client, set the IP address and port, otherwise the local address **127.0.0.1** with port **64446** will be used
+Before starting the server, set the IP address and port, otherwise the local address **127.0.0.1** with port **64446** will be used
 The project contains both the client part of the app and the server part, the files are respectively:
 - client.cs 
 - server.py
